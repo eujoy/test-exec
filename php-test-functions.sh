@@ -74,6 +74,8 @@ Explanation of allowed flags/arguments :
 #    - Run the whole file of any occurance of the test case : 
 #        phpTestCase -t testGetMessageOnDriverComment -f
 function phpTestCase() {
+	cmd="php vendor/bin/phpunit"
+	
 	usage="
 Script usage: $(basename $0) -t test_case_name [-c | -f] [-n file_name] [-e]
 Explanation of allowed flags/arguments :
@@ -173,8 +175,6 @@ Explanation of allowed flags/arguments :
 #    - Run modified files of branch compared to another branch on remote
 #        phpTestBranchChanges -b <feature branch> -d <destination branch> -r
 function phpTestBranchChanges() {
-	cmd="php vendor/bin/phpunit"
-
 	usage="
 Script usage: $(basename $0) [-b feature_branch] [-d destination_branch] [-r]
 By default this script is comparing the current branch (local) with the develop (local)

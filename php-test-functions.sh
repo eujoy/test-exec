@@ -75,7 +75,7 @@ Explanation of allowed flags/arguments :
 #        phpTestCase -t testGetMessageOnDriverComment -f
 function phpTestCase() {
 	cmd="php vendor/bin/phpunit"
-	
+
 	usage="
 Script usage: $(basename $0) -t test_case_name [-c | -f] [-n file_name] [-e]
 Explanation of allowed flags/arguments :
@@ -140,7 +140,7 @@ Explanation of allowed flags/arguments :
 	fi
 
 	[[ $execution_type == "case" || $execution_type == "" ]] && extra_field="--filter ${test_case_name}" extra_text=" | Test Case Filter : ${test_case_name}"
-	[[ $exact_test == true && $extra_field != "" ]] && extra_field="--filter /::${test_case_name}$/"
+	[[ $exact_test == true && $extra_field != "" ]] && extra_field="--filter /::${test_case_name}( with data set .*)?$/"
 
 	if [ $exact_test == true ]; then
 		testfiles=($(grep -Rw "${test_case_name}" tests/Test/* | awk -F':' '{print $1}'))
@@ -155,6 +155,9 @@ Explanation of allowed flags/arguments :
 	do
 		if [[ "$f" == *$test_file_name || $test_file_name == "" ]]; then
 			printf "\e[93;4;255m\nRunning file : ${f}${extra_text}\e[0m\n\n"
+
+			echo "$cmd ${f} ${extra_field}"
+			
 			eval "$cmd ${f} ${extra_field}"
 		fi
 	done
